@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello articlesController!{% endblock %}
+
+{% block body %}
+ {% include "admin_menu.html.twig" %}
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-green-600">
+  <a class="lien" href="{{ path('index_articles_formulaire') }}">Ecriré un nouvel article</a> 
+</button>
+
+
+<div class="mt-5">
+<h1 class="text-4xl text-center text-green-600 font-bold">ARTICLES</h1>
+
+ <table class="table-fixed w-full border-separate border border-green-600 mt-5" >
+        <thead class="bg-green-500 text-white">
+            <tr>
+                <th class="border border-green-600">Id</th>
+                <th class="border border-green-600">Articles</th>
+                 <th class="border border-green-600">Résumé</th>
+                      <th class="border border-green-600">Catégorie</th>
+                  <th class="border border-green-600">Afficher</th>
+                <th class="border border-green-600">Modifier</th>
+                  
+            </tr>
+        </thead>
+        <tbody>  
+        {% for article in articles %}
+           <tr>           
+                <td class="border border-green-600">{{ article.id }}</td>
+                <td class="border border-green-600">{{ article.titre }}</td> 
+                 <td class="border border-green-600">{{ article.resume }}</td> 
+                     <td class="border border-green-600">{{ article.categories.categories }}</td> 
+                <td class="border border-green-600 bg-green-600">                
+      <a class="lien" href="{{ path('index_articles_affichage',{ 'id':article.id }) }}"> Afficher </a>
+                </td>
+                <td class="border border-green-600 bg-green-600">                
+      <a class="lien" href="{{ path('index_articles_modification',{ 'id':article.id }) }}"> Modifier </a>
+                </td>                                
+            </tr>
+            
+        {% endfor %} 
+                  
+        </tbody>
+    </table>
+</div>
+{% endblock %}

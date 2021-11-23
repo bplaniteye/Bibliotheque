@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoriesController!{% endblock %}
+
+{% block body %}
+ {% include "admin_menu.html.twig" %}
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-red-600">
+  <a class="lien" href="{{ path('index_articles') }}">Retour au tableau des articles</a> 
+</button>
+
+<button class="rounded-full py-3 px-6 bg-red-600">
+  <a class="lien" href="{{ path('index_articles_formulaire') }}">Ecrire un nouvel article</a> 
+</button>
+</div>
+
+
+<div class="mt-5">
+    <h1 class="text-4xl text-center text-red-600 font-bold">INFORMATIONS DE L'ARTICLE </h1>
+ <table class="table-fixed w-full border-separate border border-red-600 mt-5" >
+        <thead class="bg-red-600 text-white">
+            <tr>
+                <th class="border border-red-600">Id</th>
+                <th class="border border-red-600">Titre</th>
+                <th class="border border-red-600">Contenu</th>
+                <th class="border border-red-600">Résumé</th>
+                <th class="border border-red-600">Catégorie</th>
+                 <th class="border border-red-600">Date</th>
+                <th class="border border-red-600">Image</th>
+            </tr>
+        </thead>
+        <tbody>       
+            <tr>           
+                <td class="border border-red-600">{{ articles.id }}</td>
+                <td class="border border-red-600">{{ articles.titre }}</td>
+                <td class="border border-red-600">{{ articles.contenu }}</td>
+                <td class="border border-red-600">{{ articles.resume() }}</td>
+                <td class="border border-red-600">{{ articles.categories.categories }}</td>
+                <td class="border border-red-600">{{ articles.date| date() }}</td>
+                <td class="border border-red-600">{{ articles.image }}</td>
+                              
+            </tr>          
+        </tbody>
+    </table>
+</div>    
+
+{% endblock %}

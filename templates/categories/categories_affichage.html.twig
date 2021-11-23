@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoriesController!{% endblock %}
+
+{% block body %}
+ {% include "admin_menu.html.twig" %}
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-green-600">
+  <a class="lien" href="{{ path('index_categories') }}">Retour au tableau des catégories</a> 
+</button>
+
+
+<div class="mt-5">
+<h1 class="text-4xl text-center text-green-600 font-bold">INFORMATIONS SUR LA CATEGORIE</h1>
+
+ <table class="table-fixed w-full border-separate border border-green-600 mt-5" >
+        <thead class="bg-green-500 text-white">
+            <tr>
+                <th class="border border-green-600">Id</th>
+                <th class="border border-green-600">Catégories</th>
+                  
+            </tr>
+        </thead>
+        <tbody>   
+            <tr>           
+                <td class="border border-green-600">{{ categories.id }}</td>
+                <td class="border border-green-600">{{ categories.categories }}</td>
+                               
+            </tr>         
+        </tbody>
+    </table>
+</div>
+<h1>LISTE DES ARTICLES DE CETTE CATEGORIE</h1>
+<ol>
+{% for item in articles %}
+<li> {{ item.titre }} </li>
+{% else %}
+    Aucun article lié à cette catégorie    
+{% endfor %}
+{% endblock %}

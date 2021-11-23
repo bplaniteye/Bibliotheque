@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoriesController!{% endblock %}
+
+{% block body %}
+ {% include "admin_menu.html.twig" %}
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-green-600">
+  <a class="lien" href="{{ path('index_categories_formulaire') }}">Créer une nouvelle catégorie</a> 
+</button>
+
+
+<div class="mt-5">
+<h1 class="text-4xl text-center text-green-600 font-bold">CATEGORIES</h1>
+
+ <table class="table-fixed w-full border-separate border border-green-600 mt-5" >
+        <thead class="bg-green-500 text-white">
+            <tr>
+                <th class="border border-green-600">Id</th>
+                <th class="border border-green-600">Catégories</th>
+                  <th class="border border-green-600"></th>
+                <th class="border border-green-600"></th>
+                  
+            </tr>
+        </thead>
+        <tbody>  
+        {% for categorie in categories %}
+           <tr>           
+                <td class="border border-green-600">{{ categorie.id }}</td>
+                <td class="border border-green-600">{{ categorie.categories }}</td> 
+                <td class="border border-green-600 bg-green-600">                
+      <a class="lien" href="{{ path('index_categories_affichage',{ 'id':categorie.id }) }}"> Afficher </a>
+                </td>
+                <td class="border border-green-600 bg-green-600">                
+      <a class="lien" href="{{ path('index_categories_modification',{ 'id':categorie.id }) }}"> Modifier </a>
+                </td>                                
+            </tr>
+            
+        {% endfor %} 
+                  
+        </tbody>
+    </table>
+</div>
+{% endblock %}
