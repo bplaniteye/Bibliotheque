@@ -1,0 +1,5 @@
+ANNOTATIONS
+    composer require annotations
+
+FAKER
+    composer require --dev fzaninotto/faker
