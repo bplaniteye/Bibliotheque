@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auteurs{% endblock %}
+
+{% block body %}
+
+{% include 'admin_menu.html.twig' %} 
+
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-gray-600">
+  <a class="lien" href="{{ path('index_auteurs_formulaire') }}"> Enregistrer un nouvel auteur</a> 
+</button>
+</div>                 
+
+    <h1 class="text-4xl text-center text-gray-600 font-bold mt-5">TABLEAU DES AUTEURS</h1>
+ <table class="table-auto w-full border-separate border border-gray-600 mt-5" >
+        <thead class="bg-gray-500 text-white">
+            <tr>
+                <th class="border border-gray-600">Id</th>
+                <th class="border border-gray-600">Nom</th>
+                <th class="border border-gray-600">Prénom</th>              
+                   <th class="border border-gray-600">Afficher</th>
+    
+            
+            </tr>
+        </thead>
+        <tbody>
+         {# https://twig.symfony.com/doc/3.x/tags/for.html #}
+        {% for aut in auteurs %}
+            <tr>           
+                <td class="border border-gray-600">{{ aut.id }}</td>
+                <td class="border border-gray-600">{{ aut.nom }}</td>
+                <td class="border border-gray-600">{{ aut.prenom }}</td>            
+                    <td class="border border-gray-600 text-black hover:bg-green-400">
+                <a href="{{ path('index_auteurs_informations',{ 'id':aut.id }) }}"> Afficher </a>
+                </td> 
+               
+                      
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>
+        
+     
+{% endblock %}

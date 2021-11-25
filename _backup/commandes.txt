@@ -1,5 +1,12 @@
 ANNOTATIONS
     composer require annotations
-
-FAKER
+INSTALLER FAKER
     composer require --dev fzaninotto/faker
+CREER UNE ENTITE
+    php bin/console make:entity
+CREER UN CONTROELUR
+    php bin/console make:controller
+METTRE A JOUR LA BASE DE DONNEES
+    php bin/console doctrine:schema:update
+        --force : pour forcer la commande
+        --dump-sql : to dump the SQL statements to the screen 

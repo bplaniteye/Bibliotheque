@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs index{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Naissance</th>
+                <th>Login</th>
+                <th>Motdepasse</th>
+                <th>Adresse</th>
+                <th>Email</th>
+                <th>Photo</th>
+                <th>Role</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.id }}</td>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.naissance ? utilisateur.naissance|date('Y-m-d') : '' }}</td>
+                <td>{{ utilisateur.login }}</td>
+                <td>{{ utilisateur.motdepasse }}</td>
+                <td>{{ utilisateur.adresse }}</td>
+                <td>{{ utilisateur.email }}</td>
+                <td>{{ utilisateur.photo }}</td>
+                <td>{{ utilisateur.role }}</td>
+                <td>
+                    <a href="{{ path('utilisateurs_crud_show', {'id': utilisateur.id}) }}">show</a>
+                    <a href="{{ path('utilisateurs_crud_edit', {'id': utilisateur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('utilisateurs_crud_new') }}">Create new</a>
+{% endblock %}

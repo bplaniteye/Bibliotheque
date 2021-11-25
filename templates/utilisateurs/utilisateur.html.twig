@@ -1,0 +1,21 @@
+{#% extends 'base.html.twig' %#}
+ {% extends 'user-menu.html.twig' %}
+{% block title %}Hello Symfony !{% endblock %}
+
+{% block body %}
+
+
+<div class="border flex flex-col">
+<button class="bouton" >
+<a class="lien" href="{{ path('index_biblio') }}">Biliothèque</i></a>
+</button>
+
+<button class="bouton" >
+<a class="lien" href="{{ path('index_a_propos') }}">A propos</a>
+</button>
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

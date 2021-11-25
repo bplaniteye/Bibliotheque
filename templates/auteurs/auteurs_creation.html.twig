@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+{% include 'admin_menu.html.twig' %} 
+
+
+
+                
+
+    <h1 class="text-4xl text-center text-red-600 font-bold mt-5">TABLEAU DES ARTICLES</h1>
+ <table class="table-auto w-full border-separate border border-red-600 mt-5" >
+        <thead class="bg-red-500 text-white">
+            <tr>
+                <th class="border border-red-600">Id</th>
+                <th class="border border-red-600">Nom</th>
+                <th class="border border-red-600">Prénom</th>
+                  <th class="border border-red-600">Email</th>
+    
+            
+            </tr>
+        </thead>
+        <tbody>
+         {# https://twig.symfony.com/doc/3.x/tags/for.html #}
+        {% for aut in auteurs %}
+            <tr>           
+                <td class="border border-red-600">{{ aut.id }}</td>
+                <td class="border border-red-600">{{ aut.nom }}</td>
+                <td class="border border-red-600">{{ aut.prenom }}</td>
+               
+                      
+            </tr>
+             {% endfor %}
+        </tbody>
+    </table>
+        
+     
+{% endblock %}

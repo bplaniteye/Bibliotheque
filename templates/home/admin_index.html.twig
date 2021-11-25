@@ -16,6 +16,11 @@
     <body>
         {% block body %}
         {% include "admin_menu.html.twig" %}
+             <br> {{ page }}
+
+    <a class="lien" href="{{ path('index_categories_creation') }}">Création des catégories</a>   
+  <a class="lien" href="{{ path('index_articles_creation') }}">Création des articles</a> 
+  <a class="lien" href="{{ path('index_auteurs_creation') }}">Création des auteurs</a> 
         {% endblock %}
     </body>
 </html>

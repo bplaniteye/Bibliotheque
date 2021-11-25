@@ -90,7 +90,6 @@ class CategoriesController extends AbstractController
            'categories' => $categories,
        ]);
     }
-
     
     /**
      * @Route("categories_affichage/{id}", name="index_categories_affichage", methods={"GET"})

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Info utilisateur{% endblock %}
+
+{% block body %}
+
+{% include 'admin_menu.html.twig' %}
+
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-yellow-600">
+  <a class="lien" href="{{ path('index_utilisateurs') }}">Retour au tableau des utilisateurs</a> 
+</button>
+
+<button class="rounded-full py-3 px-6 bg-yellow-600">
+  <a class="lien" href="{{ path('index_utilisateurs_form1') }}">Formulaire #1</a> 
+</button>
+
+<button class="rounded-full py-3 px-6 bg-yellow-600">
+  <a class="lien" href="{{ path('index_utilisateurs_form2') }}">Formulaire #2</a> 
+</button>
+</div>
+
+    <h1 class="text-4xl text-center text-yellow-600 font-bold mt-5">INFORMATIONS DE L'UTILISATEUR {{ id }} </h1>
+ <table class=" w-full table-fixed border-separate border border-yellow-600 mt-5" >
+        <thead class="bg-yellow-500 text-white">
+            <tr>
+                 <th class="border border-yellow-600">Id</th>
+                 <th class="border border-yellow-600">Nom</th>
+                 <th class="border border-yellow-600">Prénom</th>
+                <th class="border border-yellow-600">Date de naissance</th>
+                 <th class="border border-yellow-600">Adresse</th>
+                 <th class="border border-yellow-600">Email</th>
+                 <th class="border border-yellow-600">Login</th>
+                 <th class="border border-yellow-600">Rôle</th>              
+            </tr>
+        </thead>
+        <tbody>
+   
+            <tr>           
+                 <td class="border border-yellow-600">{{ utilisateurs.id }}</td>
+                 <td class="border border-yellow-600">{{ utilisateurs.nom }}</td>
+                 <td class="border border-yellow-600">{{ utilisateurs.prenom }}</td>
+               <td class="border border-yellow-600">{{ utilisateurs.date_de_naissance|date() }}</td>
+                 <td class="border border-yellow-600">{{ utilisateurs.adresse }}</td>
+                 <td class="border border-yellow-600">{{ utilisateurs.email }}</td>
+                 <td class="border border-yellow-600">{{ utilisateurs.login }}</td>
+                 <td class="border border-yellow-600">{{ utilisateurs.role }}</td>                                        
+            </tr>      
+        </tbody>
+    </table>
+     
+{% endblock %}

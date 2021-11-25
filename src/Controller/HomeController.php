@@ -6,9 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-  /**
-     * @Route("/", name="home")
-     */
 
 class HomeController extends AbstractController
 {
@@ -18,27 +15,27 @@ class HomeController extends AbstractController
     public function accueil(): Response
     {
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'page' => 'Accueil',
         ]);
     }
 
      /**
-     * @Route("/", name="index_admin")
+     * @Route("/admin", name="index_admin")
      */
     public function admin(): Response
     {
         return $this->render('home/admin_index.html.twig', [
-            'controller_name' => 'HomeController',
+            'page' => 'Accueil Admin',
         ]);
     }
 
      /**
-     * @Route("/", name="index_abonne")
+     * @Route("/abonne", name="index_abonne")
      */
     public function abonne(): Response
     {
         return $this->render('home/abonne_index.html.twig', [
-            'controller_name' => 'HomeController',
+            'page' => 'Accueil Abonné',
         ]);
     }
 }
