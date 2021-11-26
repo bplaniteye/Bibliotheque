@@ -13,132 +13,89 @@ use Faker;
 
 class UtilisateursController extends AbstractController
 {
+    // FORMULAIRE DE CREATION DES UTILISATEURS
     /**
-     * @Route("/admin", name="index_admin")
+     * @Route("/utilisateurs_formulaire", name="index_utilisateurs_formulaire", methods={"GET","POST"})
      */
-    public function admin(): Response
-    {
-        return $this->render('utilisateurs/admin.html.twig', [
-            'controller_name' => 'UtilisateursController',
-        ]);
-    }
-
-    /**
-     * @Route("/utilisateur", name="index_utilisateur")
-     */
-    public function view(): Response
-    {
-        return $this->render('utilisateurs/utilisateur.html.twig', [
-            'controller_name' => 'UtilisateursController',
-        ]);
-    }
-
-     /**
-     * @Route("/utilisateurs_form1", name="index_utilisateurs_form1" , methods={"GET", "POST"})
-     */
-    // Ici on Fait une Enregistrement avec une Formulaire
-
-    public function utilisateursForm1(Request $request, EntityManagerInterface $manager)
-    {
-        $utilisateurs = new Utilisateurs(); // Instanciation
-
-        // Creation de mon Formulaire
-        $form = $this->createFormBuilder($utilisateurs)
-            ->add('nom')
-            ->add('prenom')
-            ->add('date_de_naissance')
-            ->add('photo')
-            ->add('email')
-            ->add('adresse')
-            ->add('login')
-            ->add('password')
-            ->add('role')         
-
-            // Demande le résultat
-            ->getForm();
-
-        // Analyse des Requetes & Traitement des information 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($utilisateurs);
-            $manager->flush();
-            return $this->redirectToRoute('index_affichage_utilisateur', ['id' => $utilisateurs->getId()]); // Redirection vers la page
-        }
-
-        // Redirection du Formulaire vers le TWIG pour l’affichage avec
-        return $this->render('utilisateurs/utilisateurs_form1.html.twig', [
-            'formUtilisateurs' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/utilisateurs_form2", name="index_utilisateurs_form2", methods={"GET","POST"})
-     */
-    public function utilisateursForm2(Request $request): Response
+    public function utilisateursFormulaire(Request $request): Response
     {
         $utilisateurs = new Utilisateurs();
         $form = $this->createForm(UtilisateursType::class, $utilisateurs);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($utilisateurs);
             $entityManager->flush();
-
-            return $this->redirectToRoute('index_affichage_utilisateur', ['id' => $utilisateurs->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('index_utilisateurs_affichage', ['id' => $utilisateurs->getId()], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('utilisateurs/utilisateurs_form2.html.twig', [
+        return $this->render('utilisateurs/utilisateurs_formulaire.html.twig', [
             'utilisateurs' => $utilisateurs,
-            'formUtilisateurs' => $form->createView(),
+            'utilisateursFormulaire' => $form->createView(),
         ]);
     }
 
+    // FORMULAIRE DE MODIFICATION DES UTILISATEURS
     /**
-     * @Route("/edit_utilisateur/{id}" , name="index_edit_utilisateur", methods= {"GET","POST"})
+     * @Route("/utilisateurs_modification/{id}" , name="index_utilisateurs_modification", methods= {"GET","POST"})
      */
-    public function edit_utilisateur (Request $request, Utilisateurs $utilisateurs) : Response {
+    public function utilisateursModification (Request $request, Utilisateurs $utilisateurs) : Response 
+    {
 
         $form= $this->createForm(UtilisateursType::class , $utilisateurs);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
-            return $this->redirectToRoute('index_affichage_utilisateur' , ['id'=> $utilisateurs->getId()]);
+            return $this->redirectToRoute('index_utilisateurs_affichage' , ['id'=> $utilisateurs->getId()]);
         }
-        return $this->render('utilisateurs/edit_utilisateur.html.twig', ['utilisateurs'=> $utilisateurs->getId(), 
+        return $this->render('utilisateurs/utilisateurs_modification.html.twig', ['utilisateurs'=> $utilisateurs->getId(), 
         'formUtilisateurs'=>$form->createView(),
     ]);
     }
 
+    // AFFICAHGE D'UN UTILISATEUR ET SES INFORMATIONS
     /**
-     * @Route("/supprimer_utilisateur/{id}" , name="index_supprimer_utilisateur", methods= {"GET","POST"})
+     * @Route("/utilisateurs_affichage/{id}", name="index_utilisateurs_affichage", methods={"GET"})
      */
-    public function supprimer_utilisateur (Request $request, Utilisateurs $utilisateurs , EntityManagerInterface $entityManager) : Response {     
-      
+    public function utilisateursAffichage(Utilisateurs $utilisateurs, UtilisateursRepository $utilisateursRepository, Request $request, EntityManagerInterface $manager ): Response
+    {
+        return $this->render('utilisateurs/utilisateurs_affichage.html.twig', [
+            'id'=>$utilisateurs->getId(),
+            'utilisateurs' => $utilisateurs,
+        ]);
+    }
+
+    // SUPPRESSION DES UTILISATEURS
+    /**
+     * @Route("/utilisateurs_suppression/{id}" , name="index_utilisateurs_suppression", methods= {"GET","POST"})
+     */
+    public function utilisateursSuppression (Request $request, Utilisateurs $utilisateurs , EntityManagerInterface $entityManager) : Response 
+    {           
             $entityManager->remove($utilisateurs);
             $entityManager->flush();
             return $this->redirectToRoute('index_utilisateurs'); 
     }
 
+    // TABLEAU DES UTILISATEURS
     /**
      * @Route("/utilisateurs", name="index_utilisateurs")
      */
-    public function index(): Response
+    public function utilisateursIndex(): Response
     {
         $repo= $this->getDoctrine()->getRepository(Utilisateurs::class);
         $utilisateurs = $repo->findAll();
 
-        return $this->render('utilisateurs/index_utilisateurs.html.twig', [
+        return $this->render('utilisateurs/utilisateurs_index.html.twig', [
             'controller_name' => 'UtilisateursController',
             'utilisateurs' => $utilisateurs,
         ]);
     }
 
+    // CREATION DES UTILISATEURS
     /**
-     * @Route("/nouvel_utilisateur", name="index_nouvel_utilisateur", methods={"GET", "POST"})
+     * @Route("/utilisateurs_creation", name="index_utilisateurs_creation", methods={"GET","POST"})
      */
-    public function nouvelUtilisateur(Request $request, EntityManagerInterface $em): Response
+    public function utilisateursCreation(Request $request, EntityManagerInterface $em): Response
     {
         for ($i=0;$i<50;$i++)
         {
@@ -159,20 +116,10 @@ class UtilisateursController extends AbstractController
         }   
        $em->flush();
        // J'envoie au niveau du temple pour l'enregistrement
-       return $this->render('utilisateurs/nouvel_utilisateur.html.twig', [
+       return $this->render('utilisateurs/utilisateurs_creation.html.twig', [
            'utilisateurs' => $utilisateurs,
        ]);
     }
-
     
-    /**
-     * @Route("/utilisateur_affichage/{id}", name="index_affichage_utilisateur", methods={"GET"})
-     */
-    public function showuser(Utilisateurs $utilisateurs, UtilisateursRepository $utilisateursRepository, Request $request, EntityManagerInterface $manager ): Response
-    {
-        return $this->render('utilisateurs/affichage_utilisateur.html.twig', [
-            'id'=>$utilisateurs->getId(),
-            'utilisateurs' => $utilisateurs,
-        ]);
-    }
+    
 }

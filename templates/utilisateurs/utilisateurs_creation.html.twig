@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel utilisateur{% endblock %}
+
+{% block body %}
+<h1>Nouveaux utilisateurs</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+            <th>Adresse</th>
+            <th>Email</th>
+            <th>Login</th>
+            <th>Rôle</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in utilisateurs %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.nom }}</td>
+            <td>{{ item.prenom }}</td>
+            <td>{{ item.naissance| date() }}</td>
+            <td>{{ item.adresse }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.login }}</td>
+            <td>{{ item.role }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

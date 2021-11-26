@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}
-        {% include "admin_menu.html.twig" %}
-             <br> {{ page }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
+    and uncomment the following Encore helpers to start using Symfony UX #}
+    {% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    {% endblock %}
 
-    <a class="lien" href="{{ path('index_categories_creation') }}">Création des catégories</a>   
-  <a class="lien" href="{{ path('index_articles_creation') }}">Création des articles</a> 
-  <a class="lien" href="{{ path('index_auteurs_creation') }}">Création des auteurs</a> 
-        {% endblock %}
-    </body>
+    {% block javascripts %}
+    {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% include "admin_menu.html.twig" %}
+    <br> {{ page }} <br>
+    <button>
+        <a class="lien" href="{{ path('index_categories_creation') }}">Création des catégories</a>
+    </button>
+    <button>
+        <a class="lien" href="{{ path('index_articles_creation') }}">Création des articles</a>
+    </button>
+    <button>
+        <a class="lien" href="{{ path('index_auteurs_creation') }}">Création des auteurs</a>
+    </button>
+    <button>
+        <a class="lien" href="{{ path('index_utilisateurs_creation') }}">Création des utilisateurs</a>
+    </button>
+    {% endblock %}
+</body>
+
 </html>

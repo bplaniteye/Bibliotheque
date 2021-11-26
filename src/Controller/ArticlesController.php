@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticlesController extends AbstractController
 {
+    // FORMULAIRE D'ENREGISTREMENT DES ARTICLES
     /**
      * @Route("/articles_formulaire", name="index_articles_formulaire", methods={"GET","POST"})
      */
@@ -45,7 +46,7 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/articles_modification/{id}", name="index_articles_modification" , methods={"GET", "POST"})
      */
-    // Ici on Fait une Enregistrement avec une Formulaire
+    // MODIFICATION DES ARTICLES
     public function articleModification(Request $request, EntityManagerInterface $manager, Articles $articles)
     {
         // Creation de mon Formulaire
@@ -71,12 +72,11 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/", name="index_articles")
      */
-
-    public function index(): Response
+// TABLEAU DES ARTICLES
+    public function articlesIndex(): Response
     {
         $repo = $this->getDoctrine()->getRepository(Articles::class);
         $articles = $repo->findAll();
-
         return $this->render('articles/articles_index.html.twig', [
             'controller_name' => 'ArticlesController',
             'articles' => $articles,
@@ -86,18 +86,17 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/articles_creation", name="index_articles_creation", methods={"GET", "POST"})
      */
+    // CREATION DES DONNEES
     public function articlesCreation(Request $request, EntityManagerInterface $em): Response
     {
         $cat = ["Roman", "BD", "Recueil", "Essai", "Magazine", "Journal"];
         $nbcat = count($cat);
-        for ($i = 0; $i < $nbcat; $i++) 
-        {
+        for ($i = 0; $i < $nbcat; $i++) {
             $categories = new Categories();
             $categories->setCategories($cat[$i]);
             $em->persist($categories);
 
-            for ($j = 0; $j < 5; $j++) 
-            {
+            for ($j = 0; $j < 5; $j++) {
                 $articles = new Articles();
                 // Ici je fais un enregistrement Manuel, on verra la suite avec le  Formulaire
                 $articles->setTitre(" Titre $j");
