@@ -17,11 +17,38 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("articles")
+ * @Route("/articles")
  */
 
 class ArticlesController extends AbstractController
 {
+    // CREATION DES DONNEES : ARTICLES - CATEGORIES
+    /**
+     * @Route("/articles_creation", name="index_articles_creation", methods={"GET", "POST"})
+     */
+    public function articlesCreation(Request $request, EntityManagerInterface $em): Response
+    {
+        $cat = ["Roman", "BD", "Recueil", "Essai", "Magazine", "Journal"];
+        $nbcat = count($cat);
+        for ($i = 0; $i < $nbcat; $i++) {
+            $categories = new Categories();
+            $categories->setCategories($cat[$i]);
+            $em->persist($categories);
+            for ($j = 0; $j < 5; $j++) {
+                $articles = new Articles();
+                $articles->setTitre(" Titre $j");
+                $articles->setImage(" Image $j");
+                $articles->setResume("Résumé de l'article $j");
+                $articles->setDate(new  \DateTime());
+                $articles->setContenu(" Contenu de l'article $j");
+                $articles->setCategories($categories);
+                $em->persist($articles);
+            }
+        }
+        $em->flush();
+        return $this->render('articles/articles_creation.html.twig', ['articles' => $articles,]);
+    }
+
     // FORMULAIRE D'ENREGISTREMENT DES ARTICLES
     /**
      * @Route("/articles_formulaire", name="index_articles_formulaire", methods={"GET","POST"})
@@ -43,36 +70,28 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    // MODIFICATION DES ARTICLES
     /**
      * @Route("/articles_modification/{id}", name="index_articles_modification" , methods={"GET", "POST"})
      */
-    // MODIFICATION DES ARTICLES
     public function articleModification(Request $request, EntityManagerInterface $manager, Articles $articles)
     {
-        // Creation de mon Formulaire
         $form = $this->createForm(ArticlesType::class, $articles);
-        // Analyse des Requetes & Traitement des information 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$manager->persist($articles);
             $manager->flush();
-            return $this->redirectToRoute(
-                'index_articles_affichage',
-                ['id' => $articles->getId()]
-            );
+            return $this->redirectToRoute('index_articles_affichage', ['id' => $articles->getId()]);
         }
-
-        // Redirection du Formulaire vers le TWIG pour l’affichage avec
         return $this->render('articles/articles_modification.html.twig', [
             'articles' => $articles->getId(),
             'articlesFormulaire' => $form->createView()
         ]);
     }
 
+    // TABLEAU DES ARTICLES
     /**
      * @Route("/", name="index_articles")
      */
-// TABLEAU DES ARTICLES
     public function articlesIndex(): Response
     {
         $repo = $this->getDoctrine()->getRepository(Articles::class);
@@ -82,42 +101,10 @@ class ArticlesController extends AbstractController
             'articles' => $articles,
         ]);
     }
-
+    
+         // AFFICHAGE D'UN ARTICLE
     /**
-     * @Route("/articles_creation", name="index_articles_creation", methods={"GET", "POST"})
-     */
-    // CREATION DES DONNEES
-    public function articlesCreation(Request $request, EntityManagerInterface $em): Response
-    {
-        $cat = ["Roman", "BD", "Recueil", "Essai", "Magazine", "Journal"];
-        $nbcat = count($cat);
-        for ($i = 0; $i < $nbcat; $i++) {
-            $categories = new Categories();
-            $categories->setCategories($cat[$i]);
-            $em->persist($categories);
-
-            for ($j = 0; $j < 5; $j++) {
-                $articles = new Articles();
-                // Ici je fais un enregistrement Manuel, on verra la suite avec le  Formulaire
-                $articles->setTitre(" Titre $j");
-                $articles->setImage(" Image $j");
-                $articles->setResume("Résumé de l'article $j");
-                $articles->setDate(new  \DateTime());
-                $articles->setContenu(" Contenu de l'article $j");
-                $articles->setCategories($categories);
-                // Je persiste Mon Enregistrement
-                $em->persist($articles);
-            }
-        }
-        $em->flush();
-        // J'envoie au niveau du temple pour l'enregistrement
-        return $this->render('articles/articles_creation.html.twig', [
-            'articles' => $articles,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="index_articles_affichage", methods={"GET"})
+     * @Route("/articles_affichage/{id}", name="index_articles_affichage", methods={"GET"})
      */
     public function articleAffichage(Articles $articles, ArticlesRepository $articlesRepository, Request $request, EntityManagerInterface $manager): Response
     {
@@ -127,16 +114,19 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+
+    // SUPPRESSION DES ARTICLES
     /**
-     * @Route("/{id}", name="index_articles_suppression", methods={"GET" , "POST"})
+     * @Route("/articles_suppression/{id}", name="index_articles_suppression", methods={"GET"})
      */
-    public function articleSuppression(Request $request, Articles $article): Response
+    public function articleSuppression(Request $request, Articles $articles): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($article);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($articles);
+        $entityManager->flush();
         return $this->redirectToRoute('index_articles', [], Response::HTTP_SEE_OTHER);
     }
+
+
+   
 }

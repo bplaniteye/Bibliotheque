@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoriesController!{% endblock %}
+{% block title %}Affichage de l'article{% endblock %}
 
 {% block body %}
  {% include "admin_menu.html.twig" %}
@@ -27,6 +27,8 @@
                 <th class="border border-red-600">Catégorie</th>
                  <th class="border border-red-600">Date</th>
                 <th class="border border-red-600">Image</th>
+                <th class="border border-red-600">Modifier</th>
+                <th class="border border-red-600">Supprimer</th>
             </tr>
         </thead>
         <tbody>       
@@ -38,6 +40,16 @@
                 <td class="border border-red-600">{{ articles.categories.categories }}</td>
                 <td class="border border-red-600">{{ articles.date| date() }}</td>
                 <td class="border border-red-600">{{ articles.image }}</td>
+                <td class=" bg-green-600">
+								<a class="lien" href="{{ path('index_articles_modification',{ 'id':articles.id }) }}">
+									Modifier
+								</a>
+							</td>
+							<td class=" bg-green-600">
+								<a class="lien" href="{{ path('index_articles_suppression',{ 'id':articles.id }) }}">
+									Supprimer
+								</a>
+							</td>
                               
             </tr>          
         </tbody>

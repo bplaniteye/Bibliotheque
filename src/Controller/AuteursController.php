@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AuteursController extends AbstractController
 {
+    // TABLEAU DES AUTEURS
     /**
      * @Route("/auteurs", name="index_auteurs")
      */
@@ -28,6 +29,7 @@ class AuteursController extends AbstractController
         ]);
     }
 
+    // CREATION DES AUTEURS
     /**
      * @Route("/auteurs_creation", name="index_auteurs_creation", methods={"GET","POST"})
      */

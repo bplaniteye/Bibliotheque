@@ -19,7 +19,9 @@
                 <th class="border border-gray-600">Id</th>
                 <th class="border border-gray-600">Nom</th>
                 <th class="border border-gray-600">Prénom</th>              
-                   <th class="border border-gray-600">Afficher</th>
+                <th class="border border-gray-600">Afficher</th>
+                <th class="border border-gray-600">Modifier</th>
+                <th class="border border-gray-600">Supprimer</th>
     
             
             </tr>
@@ -33,6 +35,12 @@
                 <td class="border border-gray-600">{{ aut.prenom }}</td>            
                     <td class="border border-gray-600 text-black hover:bg-green-400">
                 <a href="{{ path('index_auteurs_informations',{ 'id':aut.id }) }}"> Afficher </a>
+                </td> 
+                 <td class="border border-gray-600 text-black hover:bg-green-400">
+                <a href="{{ path('index_auteurs_modification',{ 'id':aut.id }) }}"> Afficher </a>
+                </td> 
+                 <td class="border border-gray-600 text-black hover:bg-green-400">
+                <a href="{{ path('index_auteurs_suppression',{ 'id':aut.id }) }}"> Afficher </a>
                 </td> 
                
                       
