@@ -37,6 +37,11 @@ class Commentaires
      */
     private $dateheure;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Articles::class, inversedBy="commentaires")
+     */
+    private $articles;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Commentaires
     public function setDateheure(\DateTimeInterface $dateheure): self
     {
         $this->dateheure = $dateheure;
+
+        return $this;
+    }
+
+    public function getArticles(): ?Articles
+    {
+        return $this->articles;
+    }
+
+    public function setArticles(?Articles $articles): self
+    {
+        $this->articles = $articles;
 
         return $this;
     }
