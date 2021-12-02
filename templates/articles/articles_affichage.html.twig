@@ -56,4 +56,24 @@
     </table>
 </div>    
 
+<div>
+  {{ form_start(commentairesFormulaire) }}
+    {{ form_widget(commentairesFormulaire) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(commentairesFormulaire) }}
+</div>
+
+<div>
+{% for reponse in articles.commentaires %}
+  <div>
+    {{ reponse.auteur }}
+    {{ reponse.email }}
+    {{ reponse.dateheure| date() }}
+    {{ reponse.reponse }}
+  </div>
+  {% else %}
+    Aucun commentaire n'a été publié
+{% endfor %}
+</div>
+
 {% endblock %}

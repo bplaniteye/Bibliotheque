@@ -10,14 +10,6 @@
 <button class="rounded-full py-3 px-6 bg-yellow-600">
   <a class="lien" href="{{ path('index_utilisateurs') }}">Retour au tableau des utilisateurs</a> 
 </button>
-
-<button class="rounded-full py-3 px-6 bg-yellow-600">
-  <a class="lien" href="{{ path('index_utilisateurs_form1') }}">Formulaire #1</a> 
-</button>
-
-<button class="rounded-full py-3 px-6 bg-yellow-600">
-  <a class="lien" href="{{ path('index_utilisateurs_form2') }}">Formulaire #2</a> 
-</button>
 </div>
 
     <h1 class="text-4xl text-center text-yellow-600 font-bold mt-5">INFORMATIONS DE L'UTILISATEUR {{ id }} </h1>
@@ -40,7 +32,7 @@
                  <td class="border border-yellow-600">{{ utilisateurs.id }}</td>
                  <td class="border border-yellow-600">{{ utilisateurs.nom }}</td>
                  <td class="border border-yellow-600">{{ utilisateurs.prenom }}</td>
-               <td class="border border-yellow-600">{{ utilisateurs.date_de_naissance|date() }}</td>
+               <td class="border border-yellow-600">{{ utilisateurs.naissance|date() }}</td>
                  <td class="border border-yellow-600">{{ utilisateurs.adresse }}</td>
                  <td class="border border-yellow-600">{{ utilisateurs.email }}</td>
                  <td class="border border-yellow-600">{{ utilisateurs.login }}</td>

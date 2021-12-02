@@ -5,15 +5,14 @@ namespace App\Controller;
 use App\Entity\Articles;
 use App\Entity\Categories;
 use App\Form\ArticlesType;
+use App\Entity\Commentaires;
+use App\Form\CommentairesType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ArticlesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -104,13 +103,24 @@ class ArticlesController extends AbstractController
     
          // AFFICHAGE D'UN ARTICLE
     /**
-     * @Route("/articles_affichage/{id}", name="index_articles_affichage", methods={"GET"})
+     * @Route("/articles_affichage/{id}", name="index_articles_affichage", methods={"GET" , "POST"})
      */
     public function articleAffichage(Articles $articles, ArticlesRepository $articlesRepository, Request $request, EntityManagerInterface $manager): Response
     {
+        $commentaires = new Commentaires;
+        $form = $this->createForm(CommentairesType::class, $commentaires);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentaires);
+            $articles->addCommentaire($commentaires);
+            $entityManager->flush();
+           return $this->redirectToRoute('index_articles_affichage', ['id' => $articles->getId()], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('articles/articles_affichage.html.twig', [
             'id' => $articles->getId(),
             'articles' => $articles,
+            'commentairesFormulaire' => $form->createView(),
         ]);
     }
 
