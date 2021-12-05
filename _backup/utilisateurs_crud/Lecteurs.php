@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AuteursRepository;
+use App\Repository\LecteursRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=AuteursRepository::class)
+ * @ORM\Entity(repositoryClass=LecteursRepository::class)
  */
-class Auteurs implements UserInterface
+class Lecteurs implements UserInterface
 {
     /**
      * @ORM\Id
@@ -33,16 +33,6 @@ class Auteurs implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
 
     public function getId(): ?int
     {
@@ -123,29 +113,5 @@ class Auteurs implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
     }
 }

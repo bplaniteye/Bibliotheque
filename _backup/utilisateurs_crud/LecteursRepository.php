@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Auteurs;
+use App\Entity\Lecteurs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -10,16 +10,16 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @method Auteurs|null find($id, $lockMode = null, $lockVersion = null)
- * @method Auteurs|null findOneBy(array $criteria, array $orderBy = null)
- * @method Auteurs[]    findAll()
- * @method Auteurs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Lecteurs|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Lecteurs|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Lecteurs[]    findAll()
+ * @method Lecteurs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AuteursRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class LecteursRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Auteurs::class);
+        parent::__construct($registry, Lecteurs::class);
     }
 
     /**
@@ -27,7 +27,7 @@ class AuteursRepository extends ServiceEntityRepository implements PasswordUpgra
      */
     public function upgradePassword(UserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof Auteurs) {
+        if (!$user instanceof Lecteurs) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
 
@@ -37,15 +37,15 @@ class AuteursRepository extends ServiceEntityRepository implements PasswordUpgra
     }
 
     // /**
-    //  * @return Auteurs[] Returns an array of Auteurs objects
+    //  * @return Lecteurs[] Returns an array of Lecteurs objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
+            ->orderBy('l.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -54,10 +54,10 @@ class AuteursRepository extends ServiceEntityRepository implements PasswordUpgra
     */
 
     /*
-    public function findOneBySomeField($value): ?Auteurs
+    public function findOneBySomeField($value): ?Lecteurs
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

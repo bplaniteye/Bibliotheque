@@ -110,12 +110,11 @@ class UtilisateursController extends AbstractController
             $utilisateurs->setEmail($faker->email());
             $utilisateurs->setAdresse($faker->address());
             $utilisateurs->setLogin($faker->userName()) ;                    
-                $utilisateurs->setMotdepasse("mdp");
+                $utilisateurs->setMotdepasse( password_hash("mdp" , PASSWORD_DEFAULT) );
             $utilisateurs->setRole($tab[0]) ;                
        $em->persist($utilisateurs);
         }   
        $em->flush();
-       // J'envoie au niveau du temple pour l'enregistrement
        return $this->render('utilisateurs/utilisateurs_creation.html.twig', [
            'utilisateurs' => $utilisateurs,
        ]);

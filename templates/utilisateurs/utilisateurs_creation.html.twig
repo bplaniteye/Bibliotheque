@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvel utilisateur{% endblock %}
+{% block title %}Création des utilisateurs{% endblock %}
 
 {% block body %}
 <h1>Nouveaux utilisateurs</h1>
@@ -18,18 +18,18 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in utilisateurs %}
+      
         <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.nom }}</td>
-            <td>{{ item.prenom }}</td>
-            <td>{{ item.naissance| date() }}</td>
-            <td>{{ item.adresse }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.login }}</td>
-            <td>{{ item.role }}</td>
+            <td>{{ utilisateur.id }}</td>
+            <td>{{ utilisateur.nom }}</td>
+            <td>{{ utilisateur.prenom }}</td>
+            <td>{{ utilisateur.naissance| date() }}</td>
+            <td>{{ utilisateur.adresse }}</td>
+            <td>{{ utilisateur.email }}</td>
+            <td>{{ utilisateur.login }}</td>
+            <td>{{ utilisateur.role }}</td>
         </tr>
-        {% endfor %}
+     
     </tbody>
 </table>
 {% endblock %}

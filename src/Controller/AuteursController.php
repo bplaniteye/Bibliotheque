@@ -41,6 +41,7 @@ class AuteursController extends AbstractController
             $auteurs->setNom($faker->lastName())
                 ->setPrenom($faker->firstName())
                 ->setEmail($faker->email());
+                -
             $em->persist($auteurs);
             $em->flush();
         }
@@ -63,9 +64,9 @@ class AuteursController extends AbstractController
     }
 
     /**
-     * @Route("/auteurs_formulaire", name="index_auteurs_formulaire", methods={"GET","POST"})
+     * @Route("/auteurs_inscription", name="index_auteurs_inscription", methods={"GET","POST"})
      */
-    public function auteursFormulaire(Request $request): Response
+    public function auteursInscription(Request $request): Response
     {
         $auteurs = new Auteurs();
         $form = $this->createForm(AuteursType::class, $auteurs);
@@ -74,11 +75,11 @@ class AuteursController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($auteurs);
             $entityManager->flush();
-            return $this->redirectToRoute('index_auteur_affichage', ['id' => $auteurs->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('index_auteurs_affichage', ['id' => $auteurs->getId()], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('auteurs/auteurs_formulaire.html.twig', [
+        return $this->render('auteurs/auteurs_inscription.html.twig', [
             'auteurs' => $auteurs,
-            'formAuteurs' => $form->createView(),
+            'auteurs_inscription' => $form->createView(),
         ]);
     }
 }

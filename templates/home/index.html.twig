@@ -10,7 +10,20 @@
 
 <div class="example-wrapper">
     <h1>Hello ! ✅</h1>
-{{ page }}
-   <a class="" href="{{ path('index_admin') }}">Espace Admin</a> 
+    <div>
+        {{ page }}
+    </div>
+
+  <div>
+    <a class="" href="{{ path('index_admin') }}">Espace Admin</a> 
+  </div>
+  
+   <div> 
+       <p>  <a class="" href="{{ path('index_utilisateurs_inscription') }}">Inscrivez-vous</a> </p> 
+    </div> 
+   <div>
+       <p> Vous êtes auteur</p>
+       <a class="" href="{{ path('index_auteurs_inscription') }}">Inscrivez-vous</a> 
+   </div>
 </div>
 {% endblock %}
