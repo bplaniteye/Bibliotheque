@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<header>
+  <nav>
+    {% include 'admin_menu.html.twig' %}
+  </nav>
+</header>
+
+<div class="mt-5">
+<button class="rounded-full py-3 px-6 bg-yellow-600 ">
+  <a class="lien" href="{{ path('index_utilisateurs') }}">Retour au tableau des utilisateurs</a> 
+</button>
+
+</div>
+
+<h1 class="text-4xl text-center text-yellow-600 font-bold mt-5">Enregistrer un nouvel utilisateur</h1>
+
+{{ form(utilisateurs_inscription) }}
+
+
+
+{% endblock %}
+

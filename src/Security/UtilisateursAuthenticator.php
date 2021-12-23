@@ -43,7 +43,7 @@ class UtilisateursAuthenticator extends AbstractFormLoginAuthenticator implement
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
-    }<
+    }
 
     public function getCredentials(Request $request)
     {

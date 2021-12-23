@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auteurs{% endblock %}
+
+{% block body %}
+<header>
+    <nav>
+        {% include 'admin_menu.html.twig' %}
+    </nav>
+</header>
+
+<div class="mt-5">
+    <button class="rounded-full py-3 px-6 bg-gray-600">
+        <a class="lien" href="{#{ path('index_auteurs_formulaire') }#}"> Enregistrer un nouvel auteur</a>
+    </button>
+</div>
+
+<h1 class="text-center"> {{ auteurs| length }} AUTEURS</h1>
+   
+        {# https://twig.symfony.com/doc/3.x/tags/for.html #}
+        {% for aut in auteurs %}
+        <div class="card text-center" style="width: 18rem;">
+            <img src=" " class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"> {{ aut.prenom }} <span> {{ aut.nom }} </span></h5>
+                <a class="btn btn-success" href="{{ path('index_auteurs_informations',{ 'id':aut.id }) }}"> Afficher </a>
+                <a class="btn btn-warning" href="{#{ path('index_auteurs_modification',{ 'id':aut.id }) }#}"> Modifier </a>
+                <a class="btn btn-danger" href="{#{ path('index_auteurs_suppression',{ 'id':aut.id }) }#}"> Supprimer </a>
+            </div>
+        </div>
+        {% endfor %}  
+{% endblock %}

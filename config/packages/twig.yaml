@@ -1,5 +1,14 @@
 twig:
+    # form_themes : ['bootstrap_3_horizontal_layout.html.twig']
+    # form_themes : ['bootstrap_3_layout.html.twig']
+    # form_themes : ['bootstrap_4_horizontal_layout.html.twig']
+    # form_themes : ['bootstrap_4_layout.html.twig']
+    # form_themes : ['bootstrap_base_layout.html.twig']
+    #form_themes : ['form_div_layout.html.twig']
+    #form_themes : ['form_table_layout.html.twig']
+    #form_themes : ['foundation_5_layout.html.twig']
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    

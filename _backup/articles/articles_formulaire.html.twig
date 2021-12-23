@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+{% block title %}Welcome!{% endblock %}
+  
+{% block body %}
+{% include "admin_menu.html.twig" %}
+<div class="">
+    {% form_theme articlesFormulaire 'bootstrap_4_horizontal_layout.html.twig' %}
+    {{ form(articlesFormulaire) }}
+</div>
+
+
+{% endblock %}
+ 
+
