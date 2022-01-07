@@ -21,7 +21,7 @@ class ArticlesType extends AbstractType
         $builder
             ->add('titre', TextType::class, ['label' => 'Titre ', 'required' => true])
             ->add('resume', TextType::class, ['label' => 'Résumé ', 'required' => true])
-            ->add('contenu', CKEditorType::class, ['label' => 'Contenu ', 'required' => true, "attr" => ["placeholder" => "Contenu"]])
+            ->add('contenu', CKEditorType::class, ['label' => 'Contenu ', 'required' => true], "attr")
             ->add('date', DateType::class, ['label' => 'Date '])
             ->add('image', TextType::class, ['label' => 'Image ', 'required' => true])
             ->add('categories', EntityType::class, [

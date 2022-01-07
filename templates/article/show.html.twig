@@ -6,6 +6,9 @@
 {% include "admin_menu.html.twig" %}
 
 <h1> {{ article.title }} </h1>
+<div>
+      <img src="{{ vich_uploader_asset(article,'imageFile')|imagine_filter('thumb') }}"  alt="{{ article.title }}">
+</div>
 <div>{{ article.category.label }}</div>
 <div>{{ article.content }}</div>
 <div>{{ article.datetime ? article.datetime|date('Y-m-d H:i:s') : '' }}</div>

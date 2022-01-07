@@ -1,0 +1,65 @@
+# Documentation on how to configure the bundle can be found at: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+    filter_sets:
+        thumbnail_filter: #filter name
+            quality: 75 #quality of the image
+            filters:
+                thumbnail:
+                    size: [200, 200]
+                    mode: outbound
+        thumb:
+            # adjust the image quality to 60%
+            quality: 50
+            # list of transformations to apply (the "filters")
+            filters:
+                thumbnail:
+                    size: [250, 100]
+
+        # medium:
+        #     # adjust the image quality to 75%
+        #     quality: 70
+        #     # list of transformations to apply (the "filters")
+        #     filters:
+        #         thumbnail:
+        #             size: [800, 200]
+        #             mode: outbond
+        # carre:
+        #     quality: 80
+        #     filters:
+        #         thumbnail:
+        #             size: [200, 200]
+        #             mode: outbond
+
+        # rectangle:
+        #     quality: 70
+        #     filters:
+        #         thumbnail:
+        #         size: [400, 200]
+        #         mode: outbond
+
+        # echelle:
+        #     quality: 80
+        #     filters:
+        #         scale:
+        #         dim: [300, 300]
+        #         mode: outbond
+
+        # article:
+        #     quality: 80
+        #     filters:
+        #         upscale:
+        #         min: [800, 400]
+        #         thumbnail:
+        #         size: [800, 400]
+        #         mode: outbound
+
+        #         # l'image superposée
+        #         watermark:
+        #         # chemin vers le fichier
+        #         image: ../public/assets/logo/guinot.png
+        #         # Taille relative de l'image
+        #         size: 1
+        #         # set the position of the watermark
+        #         position: center            

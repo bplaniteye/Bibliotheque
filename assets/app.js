@@ -11,11 +11,11 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import { Tooltip, Toast, Popover } from 'bootstrap';
+//import { Tooltip, Toast, Popover } from 'bootstrap';
 
 
-import 'bootstrap/js/dist/util';
-import 'bootstrap/js/dist/dropdown';
+//import 'bootstrap/js/dist/util';
+//import 'bootstrap/js/dist/dropdown';
 
 
 const $ = require('jquery');

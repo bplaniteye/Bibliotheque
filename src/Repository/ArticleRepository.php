@@ -47,4 +47,16 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function searchFulltext($value)
+    {
+        $query = $this->createQueryBuilder('a');
+        if ($value != null)
+        {
+            $query->where('MATCH_AGAINST(a.title,a.content) AGAINST( :value boolean)>0')
+            ->setParameter('value', '*' . $value . '*');
+        }
+        return$query->getQuery()->getResult();
+        
+    }
 }

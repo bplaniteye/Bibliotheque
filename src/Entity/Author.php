@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\AuthorRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=AuthorRepository::class)
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class Author implements UserInterface
 {
     /**
      * @ORM\Id
@@ -45,22 +48,6 @@ class User implements UserInterface
      */
     private $lastname;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $birthday;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $address;
-
-    /**
-     * @ORM\Column(type="string", length=255,unique=true, nullable=true)
-     * @Gedmo\Slug(fields={"lastname", "firstname"})
-     */
-    private $slug;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -74,7 +61,6 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -166,39 +152,83 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getBirthday(): ?\DateTimeInterface
+     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="author_images", fileNameProperty="imageName")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $imageName;
+
+
+    // /**
+    //  * @var \DateTime $updated_at
+    //  * 
+    //  * @Gedmo\Timestampable(on="update")
+    //  * @ORM\Column(type="datetime")
+    //  */
+    // private $updatedAt;  
+
+    
+    public function __construct()
+    {        
+       $this->updatedAt = new \DateTime();
+    }  
+
+ /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->birthday;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) 
+        {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            //$this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function setBirthday(\DateTimeInterface $birthday): self
+    public function getImageFile(): ?File
     {
-        $this->birthday = $birthday;
-
-        return $this;
+        return $this->imageFile;
     }
 
-    public function getAddress(): ?string
+    public function setImageName(?string $imageName): void
     {
-        return $this->address;
+        $this->imageName = $imageName;
     }
 
-    public function setAddress(string $address): self
+    public function getImageName(): ?string
     {
-        $this->address = $address;
-
-        return $this;
+        return $this->imageName;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
 
-    public function setSlug(?string $slug): self
-    {
-        $this->slug = $slug;
+    // public function getUpdatedAt(): ?\DateTimeInterface
+    // {
+    //     return $this->updatedAt;
+    // }
 
-        return $this;
-    }
+    // public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    // {
+    //     $this->updatedAt = $updatedAt;
+
+    //     return $this;
+    // }
 }
