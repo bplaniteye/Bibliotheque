@@ -1,17 +1,12 @@
 # Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
 
 twig:
-    form_themes:
-        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+  form_themes:
+    - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
 
-        
-# cK Editor
 fos_ck_editor:
-  # Configuration de l'editeur
   configs:
-    # Nom de la Configuration
     main_config:
-      # Les Outils à utiliser
       toolbar:
         - {
             name: "styles",
@@ -47,8 +42,10 @@ fos_ck_editor:
                 "Font",
                 "FontSize",
                 "-",
-                  "TextColor",
+                "TextColor",
                 "BGColor",
                 "Source",
               ],
           }
+      filebrowserBrowseRoute: elfinder
+      filebrowserBrowseRouteParameters: []
