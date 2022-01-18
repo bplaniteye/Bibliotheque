@@ -49,7 +49,7 @@ class Article
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article")
      */
-    private $comment;  
+    private $comment;
 
     /**
      * @ORM\Column(type="string", length=255,unique=true, nullable=true)
@@ -57,7 +57,7 @@ class Article
      */
     private $slug;
 
-      /**
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="article_images", fileNameProperty="imageName")
@@ -106,7 +106,7 @@ class Article
         $this->title = $title;
 
         return $this;
-    }  
+    }
 
     public function getContent(): ?string
     {
@@ -186,9 +186,9 @@ class Article
         return $this;
     }
 
-   
 
- /**
+
+    /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
@@ -201,8 +201,7 @@ class Article
     {
         $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) 
-        {
+        if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
@@ -236,6 +235,4 @@ class Article
 
         return $this;
     }
-
-
 }
